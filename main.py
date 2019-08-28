@@ -10,7 +10,7 @@ def Main(image_name):
 	
 	image = cv2.imread(image_name)
 
-	plate = detect_plate.Detect_plate(full_path)
+	plate = detect_plate.Detect_plate(image)
 
 	recognize_plate.Recognize_plate(plate)
 
