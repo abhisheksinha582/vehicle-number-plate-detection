@@ -6,9 +6,9 @@ import detect_plate
 import recognize_plate
 
 
-def Main(file_path, image_name):
+def Main(image_name):
 	
-	full_path = file+path +"/"+ image_name
+	image = cv2.imread(image_name)
 
 	plate = detect_plate.Detect_plate(full_path)
 
@@ -17,10 +17,10 @@ def Main(file_path, image_name):
 
 if __name__ == '__main__':
 
-	path = input("enter path of the image")
+	print("please make sure the image is in the same folder in which the file main.py is\n")
 
-	image_name = input("enter image name with extension")
+	image_name = input("enter image name with extension: ")
 
-	Main(file_path, image_name)
+	Main(image_name)
 
 	
