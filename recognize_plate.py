@@ -1,5 +1,6 @@
 import pytesseract
 import os
+import cv2
 
 
 def Recognize_plate(plate):
