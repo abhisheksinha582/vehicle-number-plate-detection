@@ -5,15 +5,14 @@ import pytesseract
 import os
 
 
-def Detect_plate(full_path):
+def Detect_plate(image):
 
 
-	save_dir = full_path+'/Cropped_Image_text'
+	save_dir = os.getcwd() + '/Cropped_Image_text'
 
 	if not os.path.exists(save_dir):
 		os.mkdir(save_dir)
 
-	image = cv2.imread(full_path)
 
 	#resize the image- change width to 500
 	image = imutils.resize(image, width=500)
@@ -50,15 +49,15 @@ def Detect_plate(full_path):
 	cv2.imshow("4 - All contours", img1)
 	cv2.waitKey(0)
 
-	#Sort Contours based on their area keeping minimum required area as '30' (anything smaller than that will not ne considered)
+	#Sort Contours based on their area keeping minimum required area as '40' (anything smaller than that will not be considered)
 	cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:40]
 	NumberPlateCnt = None #we currently have no  Number plate Contour
 
-	#Top 30 Contours
+	#Top 40 Contours
 	img2 = image.copy()
 	cv2.drawContours(img2, cnts, -1, (0,255,0), 3)
-	cv2.imshow("5 - Top 30 Contours", img2)
-	cv2.imwrite(save_dir + '/top30contours' + '.png', img2)
+	cv2.imshow("5 - Top 40 Contours", img2)
+	cv2.imwrite(save_dir + '/top40contours' + '.png', img2)
 	cv2.waitKey(0)
 
 	# loop over our contours to find the best possible approximate contour of number plate
@@ -75,7 +74,6 @@ def Detect_plate(full_path):
 			x, y, w, h = cv2.boundingRect(c)
 			new_img = image[y:y+h, x:x+w] # create new image
 			cv2.imwrite(save_dir + '/plate' + '.png', new_img) # Store new image
-			idx += 1
 
 			break
 
